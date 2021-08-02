@@ -1,0 +1,172 @@
+query ExampleQuery {
+  version
+  getMovies {
+    id
+  }
+}
+
+mutation {
+  createMovie(data: { title: "Lord Of the srings", genres: ["Action,Drama"] }) {
+    id
+    title
+    genres
+    available
+  }
+}
+mutation {
+  updateMovie(
+    id: "6dae6f35-6562-4d3c-8c75-453448b90b61"
+    data: {
+      title: "ananeomeni movie"
+      genres: ["Action"]
+    }
+  ) {
+    id
+    title
+    genres
+    available
+  }
+}
+
+mutation {
+  getMovie(id: "3e53db38-1103-4eab-9007-1d28625d5b49") {
+    id
+    title
+    genres
+    genres
+  }
+}
+mutation {
+  deleteMovie(id: "38bb0b2a-1183-437f-80b0-29e9468fb5ee")
+}
+
+{
+  getMovies {
+    id
+    title
+    genres
+    available
+  }
+}
+
+{
+  getUsers {
+    id
+    title
+    dateOfBirth
+    dateOfRegistration
+  }
+}
+mutation {
+  createUser(
+    data: {
+      title: "Tasos Papadopoulos"
+      dateOfBirth: "14/02/96"
+      dateOfRegistration: "01/08/2021"
+    }
+  ) {
+    id
+    title
+    dateOfBirth
+    dateOfRegistration
+  }
+}
+
+mutation {
+  updateUser(
+    id: "18b5b672-7b6c-47fe-9231-65fd7f6ba744"
+    data: {
+      title: "NEOSXRISTIS"
+      dateOfBirth: "05/05/1990"
+      dateOfRegistration: "10/10/2020"
+    }
+  ) {
+    id
+    title
+    dateOfBirth
+    dateOfRegistration
+  }
+}
+
+mutation {
+  getUser(id: "18b5b672-7b6c-47fe-9231-65fd7f6ba744") {
+    id
+    title
+    dateOfBirth
+    dateOfRegistration
+  }
+}
+
+mutation {
+  deleteUser(id: "18b5b672-7b6c-47fe-9231-65fd7f6ba744")
+}
+
+{
+  getRentals {
+    id
+    dateOfRental
+    movie {
+      title
+      available
+    }
+    user {
+      title
+    }
+  }
+}
+
+mutation {
+  createRental(
+    data: {
+      movie_id: "98c6eba4-68e7-4944-830b-3d3e3c8996f6"
+      user_id: "e076f751-db42-427d-bc59-05589d636d40"
+      date: "15/05/2015"
+    }
+  ) {
+    id
+    movie {
+      id
+      title
+      available
+    }
+  }
+}
+
+mutation {
+  getRental(id: "a04e4d70-17bd-45a4-afc6-4d0f6bd3982e") {
+    id
+    movie {
+      id
+      title
+      available
+    }
+    user {
+      id
+      title
+    }
+  }
+}
+
+mutation {
+  updateRental(
+    id: "fcb52314-5c4f-479f-9e55-20071b708c1c"
+    data: {
+      movie_id: "98c6eba4-68e7-4944-830b-3d3e3c8996f6"
+      user_id: "e076f751-db42-427d-bc59-05589d636d40"
+      date: "15/05/2020"
+    }
+  ) {
+    dateOfRental
+    movie {
+      title
+      available
+    }
+    user {
+      title
+    }
+  }
+}
+
+mutation {
+  deleteRental(id: "fcb52314-5c4f-479f-9e55-20071b708c1c")
+}
