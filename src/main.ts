@@ -11,6 +11,9 @@ import { ENVIRONMENT, HOST, PORT } from './dependencies/config'
 
 import { CustomContext } from './types/interfaces/CustomContext'
 
+import { Error } from './middlewares/ErrorKoa'
+import { ErrorInterceptor } from './middlewares/ErrorInterceptor'
+
 import { CoreResolver } from './lib/resolvers/CoreResolver'
 import { MovieResolver } from './lib/resolvers/MovieResolver'
 import { UserResolver } from './lib/resolvers/UserResolver'
@@ -28,8 +31,8 @@ async function main (): Promise<void> {
       MovieResolver,
       UserResolver,
       RentalResolver
-    ]
-    // globalMiddlewares: []
+    ],
+    globalMiddlewares: [ErrorInterceptor]
   })
 
   const apolloServer = new ApolloServer({
@@ -50,6 +53,8 @@ async function main (): Promise<void> {
   await apolloServer.start()
 
   app.use(cors())
+    .use(Error)
+
   app.use(apolloServer.getMiddleware({ cors: false }))
   const httpServer = createServer(app.callback())
 

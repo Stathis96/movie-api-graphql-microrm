@@ -14,7 +14,7 @@ export async function createRentalAction (data: RentalInputData, em: EntityManag
   const user = await em.findOneOrFail(User, { id: data.user_id })
 
   if (!movie.available) {
-    throw new UserInputError('No such movie available')
+    throw new UserInputError('MOVIE_UNAVAILABLE')
   }
   const rental = em.create(Rental, { movie: movie, user: user, dateOfRental: data.date })
   rental.movie.available = false
