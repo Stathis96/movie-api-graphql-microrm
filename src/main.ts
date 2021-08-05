@@ -11,7 +11,7 @@ import { ENVIRONMENT, HOST, PORT } from './dependencies/config'
 
 import { CustomContext } from './types/interfaces/CustomContext'
 
-import { Error } from './middlewares/ErrorKoa'
+// import { Error } from './middlewares/ErrorKoa'
 import { ErrorInterceptor } from './middlewares/ErrorInterceptor'
 
 import { CoreResolver } from './lib/resolvers/CoreResolver'
@@ -53,7 +53,7 @@ async function main (): Promise<void> {
   await apolloServer.start()
 
   app.use(cors())
-    .use(Error)
+  // .use(Error)
 
   app.use(apolloServer.getMiddleware({ cors: false }))
   const httpServer = createServer(app.callback())

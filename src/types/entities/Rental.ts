@@ -21,6 +21,6 @@ export class Rental {
 
   @Property()
   @Field()
-  dateOfRental: string
+  dateOfRental: Date
   // rental relation
 }

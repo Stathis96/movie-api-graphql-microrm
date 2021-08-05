@@ -9,9 +9,9 @@ export class UserInputData {
 
   @Field()
   @IsDate()
-  dateOfBirth: string
+  dateOfBirth: Date
 
   @Field()
   @IsString()
-  dateOfRegistration: string
+  dateOfRegistration: Date
 }

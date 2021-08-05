@@ -20,6 +20,19 @@ export const ErrorInterceptor: MiddlewareFn<CustomContext> = async (_context, ne
       }
     }
 
+    // if (err.validationErrors) {
+    //   let ret = ''
+    //   err.validationErrors.forEach((val: ValidationError, idx: number, err: ValidationError[]) => {
+    //     if (idx === err.length - 1) {
+    //       ret += (Object.values(val.constraints)).toString()
+    //     } else {
+    //       ret += (Object.values(val.constraints)).toString() + ', '
+    //     }
+    //   })
+    //   console.log(ret)
+    //   throw Error(ret)
+    // }
+
     if (err.name === 'NotFoundError') {
       console.log('NotFoundError: ', err.message)
       throw new ValidationError(err.message)
