@@ -6,20 +6,31 @@ export const ErrorInterceptor: MiddlewareFn<CustomContext> = async (_context, ne
   try {
     return await next()
   } catch (err) {
-    console.log('DES EDW', err.name)
+    console.log('error', err)
+    console.log(err.constraints)
+    if (err.validationErrors) {
+      const errors = [] as string[]
+      err.validationErrors.forEach((val: {property: string, value: string}) => {
+        errors.push(val.property + ': ' + val.value)
+      })
+      if (errors.length) {
+        let ret = ''
+        errors.forEach(val => { ret = ret + val + ', ' })
+        throw Error(ret)
+      }
+    }
+
     if (err.name === 'NotFoundError') {
       console.log('NotFoundError: ', err.message)
       throw new ValidationError(err.message)
     } else if (err.name === 'UserInputError') {
       console.log('UserInputError: ', err.message)
       throw err
-      // context.ctx.message = 'USER INPUT ERROR'
-      // context.ctx.status = 422
-      // {context.ctx.response.status}: ${info.returnType} ${context.ctx.message}
     }
 
     throw new ApolloError('INTERNAL_ERROR')
   }
 }
+
 // NotFoundError
 // UserInputError

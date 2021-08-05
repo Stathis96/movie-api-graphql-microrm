@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator'
+import { IsDate, IsString } from 'class-validator'
 import { Field, InputType } from 'type-graphql'
 
 @InputType()
@@ -8,7 +8,7 @@ export class UserInputData {
   title: string
 
   @Field()
-  @IsString()
+  @IsDate()
   dateOfBirth: string
 
   @Field()
