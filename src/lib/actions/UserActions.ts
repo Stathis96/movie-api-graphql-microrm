@@ -6,16 +6,16 @@ export async function getUsersAction (em: EntityManager): Promise<User[]> {
   return await em.find(User, {})
 }
 
+export async function getUserAction (id: string, em: EntityManager): Promise<User> {
+  const user = await em.findOneOrFail(User, { id })
+  return user
+}
+
 export async function createUserAction (data: UserInputData, em: EntityManager): Promise<User> {
   const user = em.create(User, data)
 
   await em.persistAndFlush(user)
 
-  return user
-}
-
-export async function getUserAction (id: string, em: EntityManager): Promise<User> {
-  const user = await em.findOneOrFail(User, { id })
   return user
 }
 

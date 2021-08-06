@@ -15,5 +15,5 @@ export class RentalInputData {
 
   @Property()
   @Field()
-  date: Date
+  date: string
 }

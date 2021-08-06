@@ -6,17 +6,17 @@ export async function getMoviesAction (em: EntityManager): Promise<Movie[]> {
   return await em.find(Movie, {})
 }
 
+export async function getMovieAction (id: string, em: EntityManager): Promise<Movie> {
+  const movie = await em.findOneOrFail(Movie, { id })
+  return movie
+}
+
 export async function createMovieAction (data: MovieInputData, em: EntityManager): Promise<Movie> {
   // const movie = em.create(Movie, data)
   const movie = em.create(Movie, { ...data, available: true })
 
   await em.persistAndFlush(movie)
 
-  return movie
-}
-
-export async function getMovieAction (id: string, em: EntityManager): Promise<Movie> {
-  const movie = await em.findOneOrFail(Movie, { id })
   return movie
 }
 
