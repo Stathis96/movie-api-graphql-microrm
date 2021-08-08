@@ -1,7 +1,7 @@
 import '../dbSetup'
 import { EntityManager } from '@mikro-orm/core'
 import { getConnection } from 'tests/createConnection'
-import { createUserAction, deleteUserAction, getUsersAction, updateUserAction } from 'src/lib/actions/UserActions'
+import { createUserAction, deleteUserAction, getUserAction, getUsersAction, updateUserAction } from 'src/lib/actions/UserActions'
 import { User } from 'src/types/entities/User'
 
 let em: EntityManager
@@ -51,6 +51,25 @@ describe('UsersAction: getUsersAction', () => {
     expect(result).toHaveLength(4)
     expect(result[0]).toBe(m1)
     expect(result[3]).toBe(m4)
+  })
+})
+
+describe('MoviesAction: getMovieAction', () => {
+  test('invalid-id should throw error', async () => {
+    expect.assertions(1)
+
+    await createBasicUser()
+
+    await expect(async () => await getUserAction('invalid-id', em))
+      .rejects.toThrow('not found')
+  })
+  test('can fetch movie with valid data', async () => {
+    expect.assertions(1)
+
+    const m1 = await createBasicUser()
+
+    const result = await getUserAction(m1.id, em)
+    expect(result).toBe(m1)
   })
 })
 

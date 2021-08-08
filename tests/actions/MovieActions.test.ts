@@ -1,7 +1,7 @@
 import '../dbSetup'
 import { EntityManager } from '@mikro-orm/core'
 import { getConnection } from 'tests/createConnection'
-import { createMovieAction, deleteMovieAction, getMoviesAction, updateMovieAction } from 'src/lib/actions/MovieActions'
+import { createMovieAction, deleteMovieAction, getMovieAction, getMoviesAction, updateMovieAction } from 'src/lib/actions/MovieActions'
 import { Movie } from 'src/types/entities/Movie'
 
 let em: EntityManager
@@ -49,6 +49,25 @@ describe('MoviesAction: getMoviesAction', () => {
     expect(result).toHaveLength(4)
     expect(result[0]).toBe(m1)
     expect(result[3]).toBe(m4)
+  })
+})
+
+describe('MoviesAction: getMovieAction', () => {
+  test('invalid-id should throw error', async () => {
+    expect.assertions(1)
+
+    await createBasicMovie()
+
+    await expect(async () => await getMovieAction('invalid-id', em))
+      .rejects.toThrow('not found')
+  })
+  test('can fetch movie with valid data', async () => {
+    expect.assertions(1)
+
+    const m1 = await createBasicMovie()
+
+    const result = await getMovieAction(m1.id, em)
+    expect(result).toBe(m1)
   })
 })
 
